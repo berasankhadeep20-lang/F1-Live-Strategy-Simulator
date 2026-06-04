@@ -10,11 +10,11 @@ export interface Stint {
 
 export interface LapData {
   lap: number;
-  lapTime: number; // seconds
+  lapTime: number;
   tyreAge: number;
   compound: Compound;
   position: number;
-  gap: number; // gap to leader in seconds
+  gap: number;
   sector1: number;
   sector2: number;
   sector3: number;
@@ -34,9 +34,9 @@ export interface Driver {
 
 export interface TyreDegModel {
   compound: Compound;
-  coefficients: [number, number, number]; // [a, b, c] for ax² + bx + c
-  basePace: number; // base lap time at tyre age 0
-  degradationRate: number; // seconds per lap
+  coefficients: [number, number, number];
+  basePace: number;
+  degradationRate: number;
 }
 
 export interface PitWindow {
@@ -45,10 +45,10 @@ export interface PitWindow {
   recommendedLap: number;
   windowOpen: number;
   windowClose: number;
-  undercutProb: number; // 0-1
-  overcutProb: number;  // 0-1
+  undercutProb: number;
+  overcutProb: number;
   targetCompound: Compound;
-  timeGain: number; // estimated seconds gained
+  timeGain: number;
 }
 
 export interface UndercutAnalysis {
@@ -62,21 +62,48 @@ export interface UndercutAnalysis {
   estimatedGainPerLap: number;
 }
 
+export type SafetyCarType = 'SC' | 'VSC' | null;
+
+export interface SafetyCarEvent {
+  type: 'SC' | 'VSC';
+  startLap: number;
+  endLap: number;
+}
+
+export interface CircuitDegMultiplier {
+  SOFT: number;
+  MEDIUM: number;
+  HARD: number;
+}
+
 export interface Race {
   id: string;
   name: string;
   circuit: string;
   country: string;
+  flag: string;
   year: number;
   totalLaps: number;
   drivers: Driver[];
+  safetyCarEvents: SafetyCarEvent[];
+  degMultiplier: CircuitDegMultiplier;
+  pitLaneTime: number;
 }
 
 export interface SimulationState {
   currentLap: number;
   isPlaying: boolean;
-  speed: number; // 1x, 2x, 4x
+  speed: number;
   selectedRace: Race | null;
   selectedDrivers: string[];
   focusedDriver: string | null;
+  theme: 'dark' | 'light';
+  activeSafetyCar: SafetyCarType;
+  rainProbability: number;
+  shareURL: string | null;
+}
+
+export interface StrategyComparison {
+  oneStop: { totalTime: number; stops: number[]; compounds: Compound[] };
+  twoStop: { totalTime: number; stops: number[]; compounds: Compound[] };
 }
