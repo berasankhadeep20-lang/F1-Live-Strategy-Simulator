@@ -107,3 +107,19 @@ export interface StrategyComparison {
   oneStop: { totalTime: number; stops: number[]; compounds: Compound[] };
   twoStop: { totalTime: number; stops: number[]; compounds: Compound[] };
 }
+
+export interface CustomStint {
+  id: string;
+  compound: Compound;
+  startLap: number;
+  endLap: number;
+}
+
+export interface CustomStrategy {
+  driverCode: string;
+  stints: CustomStint[];
+  projectedTime: number;
+  originalTime: number;
+  lapTimeCurve: Array<{ lap: number; custom: number; original: number }>;
+  timeDelta: number; // positive = custom is slower
+}

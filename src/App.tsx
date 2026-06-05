@@ -12,6 +12,7 @@ import DriverSelector from './components/DriverSelector';
 import SafetyCarBanner from './components/SafetyCarBanner';
 import WeatherPanel from './components/WeatherPanel';
 import StrategyComparison from './components/StrategyComparison';
+import CustomStrategyBuilder from './components/CustomStrategyBuilder';
 import ShareModal from './components/ShareModal';
 import KeyboardShortcutsHelp from './components/KeyboardShortcutsHelp';
 import './App.css';
@@ -109,6 +110,11 @@ export default function App() {
             />
           </div>
           <StrategyComparison
+            race={selectedRace}
+            currentLap={sim.currentLap}
+            focusedDriver={sim.focusedDriver}
+          />
+          <CustomStrategyBuilder
             race={selectedRace}
             currentLap={sim.currentLap}
             focusedDriver={sim.focusedDriver}
